@@ -1,5 +1,5 @@
-Flask==2.3.2
-tensorflow==2.13.0
+Flask
+gunicorn
+opencv-python-headless
 numpy
-opencv-python
-h5py
+tensorflow-cpu==2.13.0
