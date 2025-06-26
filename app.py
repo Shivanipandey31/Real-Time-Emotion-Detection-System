@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 
 # Load trained model
-model = load_model('models/emotion_model.h5')
+model = load_model('models/emotion_model.keras')
 emotion_labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 
 # OpenCV face detector
