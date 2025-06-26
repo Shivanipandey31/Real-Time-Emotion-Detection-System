@@ -1,6 +1,0 @@
-{
-  "build": {
-    "builder": "nixpacks"
-  },
-  "start": "python app.py"
-}
