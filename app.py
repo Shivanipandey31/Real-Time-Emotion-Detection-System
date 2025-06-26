@@ -6,8 +6,15 @@ import os
 
 app = Flask(__name__)
 
-# Load trained model
-model = load_model('models/emotion_model.keras')
+# Load trained model (with check)
+MODEL_PATH = 'models/emotion_model.keras'
+
+if not os.path.exists(MODEL_PATH):
+    raise FileNotFoundError(f"Model file not found at: {MODEL_PATH}")
+else:
+    print(f"✅ Loading model from {MODEL_PATH}")
+
+model = load_model(MODEL_PATH)
 emotion_labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 
 # OpenCV face detector
