@@ -15,7 +15,7 @@ The model was trained using **TensorFlow/Keras** on the **FER-2013 dataset**.
 
 📁 **All large files** including:
 - The original `fer2013.csv` dataset  
-- The trained model file (`model.keras`)  
+- The trained model file (`emotion_model.keras`)  
 - Any other required large assets  
 
 ...are stored in this shared Drive folder:  
