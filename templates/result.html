@@ -59,20 +59,23 @@
       </div>
 
       <div class="message-box">
-        {% if emotion == 'Happy' %}
+        {% set emo = emotion|trim|lower %}
+        {% if emo == 'happy' %}
           😊 Keep smiling, happiness looks great on you!
-        {% elif emotion == 'Sad' %}
+        {% elif emo == 'sad' %}
           😢 It's okay to feel sad sometimes. Take a deep breath and be kind to yourself.
-        {% elif emotion == 'Angry' %}
+        {% elif emo == 'angry' %}
           😠 Take a moment to cool down. A peaceful mind is a powerful one.
-        {% elif emotion == 'Surprise' %}
+        {% elif emo == 'surprise' %}
           😲 Something unexpected? Hope it’s a good surprise!
-        {% elif emotion == 'Fear' %}
+        {% elif emo == 'fear' %}
           😨 It’s okay to be scared — courage doesn’t mean not being afraid.
-        {% elif emotion == 'Disgust' %}
+        {% elif emo == 'disgust' %}
           🤢 Yikes! Something’s not sitting right with you.
-        {% else%}
-          😐 Steady and calm — sometimes, neutral is just right.
+        {% elif emo == 'neutral' %}
+          😐 You seem calm and composed — a peaceful state of mind is always a good place to be.
+        {% else %}
+          🤔 Unable to detect emotion confidently. Try again?
         {% endif %}
       </div>
 

@@ -24,6 +24,7 @@ def predict_emotion_from_image(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
+    predicted_emotion = "Unknown"
     for (x, y, w, h) in faces:
         roi_gray = gray[y:y+h, x:x+w]
         roi_gray = cv2.resize(roi_gray, (48, 48))
@@ -32,13 +33,16 @@ def predict_emotion_from_image(image):
         roi = np.expand_dims(roi, axis=-1)
 
         prediction = model.predict(roi, verbose=0)
-        emotion = emotion_labels[np.argmax(prediction)]
+        predicted_emotion = emotion_labels[np.argmax(prediction)]
 
         cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
-        cv2.putText(image, emotion, (x, y - 10),
+        cv2.putText(image, predicted_emotion, (x, y - 10),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36, 255, 12), 2)
 
-    return image
+        break  # Only detect the first face for simplicity
+
+    return image, predicted_emotion
+
 
 @app.route('/')
 def index():
@@ -57,12 +61,15 @@ def predict():
     file.save(img_path)
 
     image = cv2.imread(img_path)
-    output_img = predict_emotion_from_image(image)
+    output_img, emotion = predict_emotion_from_image(image)
 
     result_path = os.path.join('static', 'result.jpg')
     cv2.imwrite(result_path, output_img)
 
-    return render_template('result.html', user_image='result.jpg')
+    print(f"[INFO] Predicted Emotion: '{emotion}'")  # Debug print
+
+    return render_template('result.html', user_image='result.jpg', emotion=emotion)
+
 
 def gen_frames():
     cap = cv2.VideoCapture(0)
